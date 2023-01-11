@@ -124,7 +124,10 @@ public class CgroupMetrics implements Metrics {
         long subsMem = subsystem.getMemoryLimit();
         // Catch the cgroup memory limit exceeding host physical memory.
         // Treat this as unlimited.
-        if (subsMem >= getTotalMemorySize0()) {
+        long systemMemory = getTotalMemorySize0();
+        System.out.println("systemMemory == " + systemMemory);
+        System.out.println("containerMemory == " + subsMem);
+        if (subsMem >= systemMemory) {
             return CgroupSubsystem.LONG_RETVAL_UNLIMITED;
         }
         return subsMem;
