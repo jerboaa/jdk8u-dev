@@ -179,6 +179,7 @@ jobs:
           cat build/linux-x64/spec.gmk
           cat build/linux-x64/hotspot-spec.gmk
           make CONF_NAME=linux-x64 LOG_LEVEL=debug images
+          ./build/linux-x64/images/j2sdk-image/bin/java -version
         working-directory: jdk
 
       - name: Pack artifacts
@@ -264,7 +265,7 @@ jobs:
         run: |
           mkdir -p "${HOME}/jdk-linux-x64${{ matrix.artifact }}/jdk-${{ env.JDK_VERSION }}-internal+0_linux-x64_bin${{ matrix.artifact }}"
           tar -xzf "${HOME}/jdk-linux-x64${{ matrix.artifact }}/jdk-${{ env.JDK_VERSION }}-internal+0_linux-x64_bin${{ matrix.artifact }}.tar.gz" -C "${HOME}/jdk-linux-x64${{ matrix.artifact }}/jdk-${{ env.JDK_VERSION }}-internal+0_linux-x64_bin${{ matrix.artifact }}"
-          ${HOME}/jdk-linux-x64${{ matrix.artifact }}/jdk-${{ env.JDK_VERSION }}-internal+0_linux-x64_bin${{ matrix.artifact }}/bin/java -version
+          ${HOME}/jdk-linux-x64${{ matrix.artifact }}/jdk-${{ env.JDK_VERSION }}-internal+0_linux-x64_bin${{ matrix.artifact }}/j2sdk-image/bin/java -version
           echo "Running boot JDK"
           /usr/lib/jvm/java-8-openjdk-amd64/bin/java -version
 
