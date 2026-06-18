@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003, 2020, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2003, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,7 +25,8 @@
  * @test
  * @bug 7126889
  * @summary Incorrect SSLEngine debug output
- * @library /test/lib /lib/security /javax/net/ssl/templates
+ * @library /test/lib /lib/testlibrary /lib/security /javax/net/ssl/templates
+ * @build jdk.testlibrary.Utils
  * @run main DebugReportsOneExtraByte
  */
 /*
@@ -99,8 +100,8 @@ public class DebugReportsOneExtraByte extends SSLEngineTemplate {
 
             System.out.println("Test Passed.");
         } else {
-            // Re-enable TLSv1 since test depends on it
-            SecurityUtils.removeFromDisabledTlsAlgs("TLSv1");
+            // Re-enable TLSv1 and TLS_RSA_* since test depends on it
+            SecurityUtils.removeFromDisabledTlsAlgs("TLSv1", "TLS_RSA_*");
 
             DebugReportsOneExtraByte test = new DebugReportsOneExtraByte();
             test.runTest();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, 2020, Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -26,7 +26,8 @@
  * @bug 8044860
  * @summary Vectors and fixed length fields should be verified
  *          for allowed sizes.
- * @library /lib/security /javax/net/ssl/templates
+ * @library /lib/testlibrary /lib/security /javax/net/ssl/templates
+ * @build jdk.testlibrary.Utils
  * @run main/othervm LengthCheckTest
  * @key randomness
  */
@@ -267,8 +268,8 @@ public class LengthCheckTest extends SSLEngineTemplate {
      * Main entry point for this test.
      */
     public static void main(String args[]) throws Exception {
-        // Re-enable TLSv1 since test depends on it.
-        SecurityUtils.removeFromDisabledTlsAlgs("TLSv1");
+        // Re-enable TLSv1 and TLS_RSA_* since test depends on it.
+        SecurityUtils.removeFromDisabledTlsAlgs("TLSv1", "TLS_RSA_*");
 
         List<LengthCheckTest> ccsTests = new ArrayList<>();
 

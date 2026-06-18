@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2018, Red Hat, Inc. and/or its affiliates. All rights reserved.
+ * Copyright (c) 2024, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -25,7 +26,7 @@
  * @test
  * @bug 8029661
  * @summary Test TLS 1.2
- * @library ..
+ * @library .. /lib/security
  * @run main/othervm/timeout=120 TestTLS12
  */
 
@@ -76,6 +77,9 @@ public final class TestTLS12 extends SecmodTest {
     private static RSAPublicKey publicKey;
 
     public static void main(String[] args) throws Exception {
+        // Re-enable TLS_RSA_* since test depends on it.
+        SecurityUtils.removeFromDisabledTlsAlgs("TLS_RSA_*");
+
         try {
             initialize();
         } catch (Exception e) {
